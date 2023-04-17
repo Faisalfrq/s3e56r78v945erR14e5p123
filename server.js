@@ -16,7 +16,7 @@ const corsOptions = {
 };
 
 app.get('/', (req, res)=>{
-  res.send("Hello, world!");
+  res.send("Hello, world! PieTECH DEV");
 })
 
 app.use(cors(corsOptions));
