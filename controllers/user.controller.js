@@ -3,18 +3,14 @@ const User = db.user
 
 exports.addUsers = async (req, res) => {
     try {
-        const {
-            name,
-            email,
-            password,
-            phone,
-        } = req.body;
+        const { name, email, password, phone, applyAs } = req.body;
 
         const user = new User({
-            name,
-            email,
-            password,
-            phone,
+            name: name,
+            email: email,
+            password: password,
+            phone: phone,
+            applyAs: applyAs
         });
 
         const newRecord = await user.save();

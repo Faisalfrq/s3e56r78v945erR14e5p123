@@ -5,39 +5,39 @@ const jwt = require('jsonwebtoken')
 const config = require('../config/auth.config')
 const bcrypt = require('bcryptjs')
 
-exports.signup = async (req, res) => {
-    const { name, email, password, phone, applyAs, DevSub, TrainerSub} = req.body
-    try {
-        const existingUser = await User.findOne({ email: email })
-        if (existingUser.email) {
-            return res.status(400).send({
-                status: "error",
-                message: "email already exists"
-            })
-        }
-        //const hashedPassword = await bcrypt.hash(password, 10)
-        const result = await db.create({
-            name: name,
-            email: email,
-            password: password,
-            phone: phone,
-            applyAs: applyAs
-        })
+// exports.signup = async (req, res) => {
+//     const { name, email, password, phone, applyAs, DevSub, TrainerSub} = req.body
+//     try {
+//         const existingUser = await User.findOne({ email: email })
+//         if (existingUser.email) {
+//             return res.status(400).send({
+//                 status: "error",
+//                 message: "email already exists"
+//             })
+//         }
+//         //const hashedPassword = await bcrypt.hash(password, 10)
+//         const result = await db.create({
+//             name: name,
+//             email: email,
+//             password: password,
+//             phone: phone,
+//             applyAs: applyAs
+//         })
 
-        const token = jwt.sign({ email: result.email, id: result.id }, config.secret)
+//         const token = jwt.sign({ email: result.email, id: result.id }, config.secret)
 
-        res.status(201).json({
-            user: result,
-            token: token
-        })
-    } catch (err) {
-        return res.status(500).send({
-            status: "error",
-            message: "something went wrong, please try again later"
-        })
-    }
+//         res.status(201).json({
+//             user: result,
+//             token: token
+//         })
+//     } catch (err) {
+//         return res.status(500).send({
+//             status: "error",
+//             message: "something went wrong, please try again later"
+//         })
+//     }
 
-}
+// }
 
 
 exports.login = async (req, res) => {
