@@ -1,5 +1,5 @@
 module.exports = {
-  userName: "QasimKhan",
-  password: "QasimKhan",
-  dbName: "pietech",
+  userName: "fslDataBase",
+  password: "fslDataBase",
+  dbName: "pieTechDb",
 };

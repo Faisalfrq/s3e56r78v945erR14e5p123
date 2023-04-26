@@ -10,7 +10,7 @@ router.get('/getAllUsers', userContoller.getAllUsers);
 //for login
 router.get("/getOneUser/:id", userContoller.getOneUser);
 //for signup
-router.post("/addUsers", userContoller.addUsers);
+router.post("/addUsers", userContoller.addUsers); //============= USED FOR SIGNUP ============
 //for update
 router.put("/updateUser/:id", userContoller.updateUser);
 //for delete account

@@ -29,8 +29,8 @@ mongoose.set("strictQuery", false);
 
 db.mongoose
   .connect(
-    //`mongodb+srv://${config.userName}:${config.password}@cluster1.qhcltxw.mongodb.net/test`
-    `mongodb+srv://${config.userName}:${config.password}@cluster1.qhcltxw.mongodb.net/test`,
+    //`mongodb+srv://${config.userName}:${config.password}@cluster1.qhcltxw.mongodb.net/test`,
+    `mongodb+srv://${config.userName}:${config.password}@cluster0.symtdxi.mongodb.net/${config.dbName}`,
     {
       useUnifiedTopology: true,
       useNewUrlParser: true,

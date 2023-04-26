@@ -5,6 +5,16 @@ exports.addUsers = async (req, res) => {
     try {
         const { name, email, password, phone, applyAs } = req.body;
 
+        // Check if user with the same email already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            console.log("Account already exists");
+            return res.status(400).send({
+                status: "error",
+                message: "Account already exists",
+            });
+        }
+
         const user = new User({
             name: name,
             email: email,
