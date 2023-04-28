@@ -26,6 +26,7 @@ exports.addUsers = async (req, res) => {
         const newRecord = await user.save();
         return res.send({
             status: "Success",
+            message:"New Record Created",
             data: newRecord,
         });
     } catch (err) {
