@@ -30,7 +30,6 @@ mongoose.set("strictQuery", false);
 require('dotenv').config();
 const password = process.env.pietechDBUserpassword;
 const dbName = process.env.pieTechDBName;
-console.log( password)
 
 db.mongoose
   .connect(
@@ -48,9 +47,9 @@ db.mongoose
 
 const PORT = process.env.PORT || 7777;
 
-// app.listen(PORT, () => {
-//   console.log(`Server is runing on port ${PORT}`);
-// });
-app.listen(() => {
-  console.log(`Server is running`);
+app.listen(PORT, () => {
+  console.log(`Server is runing on port ${PORT}`);
 });
+// app.listen(() => {
+//   console.log(`Server is running`);
+// });
