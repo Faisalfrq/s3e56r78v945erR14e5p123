@@ -9,15 +9,18 @@ const { mongoose } = require("./models/index");
 const userRoutes = require("./routes/user.routes");
 const loginRoutes = require("./routes/login.routes");
 
-
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://pie-technologies.com/login", "https://pie-technologies.com"],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+  origin: [
+    "http://localhost:3000",
+    "https://pie-technologies.com/login",
+    "https://pie-technologies.com",
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 };
 
-app.get('/', (req, res)=>{
+app.get("/", (req, res) => {
   res.send("Hello, world! PieTECH DEV");
-})
+});
 
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -27,7 +30,7 @@ app.use(loginRoutes);
 
 mongoose.set("strictQuery", false);
 
-require('dotenv').config();
+require("dotenv").config();
 const password = process.env.pietechDBUserpassword;
 const dbName = process.env.pieTechDBName;
 
@@ -39,7 +42,7 @@ db.mongoose
     {
       useUnifiedTopology: true,
       useNewUrlParser: true,
-      dbName: config.dbName,
+      dbName: dbName,
     }
   )
   .then(() => console.log("connection to the database was successful"))
