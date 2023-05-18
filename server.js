@@ -27,10 +27,16 @@ app.use(loginRoutes);
 
 mongoose.set("strictQuery", false);
 
+require('dotenv').config();
+const password = process.env.password;
+const dbName = process.env.pietechDBUserpassword;
+console.log( password)
+
 db.mongoose
   .connect(
     //`mongodb+srv://${config.userName}:${config.password}@cluster1.qhcltxw.mongodb.net/test`,
-    `mongodb+srv://${config.userName}:${config.password}@cluster0.symtdxi.mongodb.net/${config.dbName}`,
+    //`mongodb+srv://${userName}:${password}@cluster0.symtdxi.mongodb.net/${dbName}`,
+    `mongodb+srv://pieTech-dev-fsl:${password}@pietechnologies.a57f8ub.mongodb.net/${dbName}`,
     {
       useUnifiedTopology: true,
       useNewUrlParser: true,
