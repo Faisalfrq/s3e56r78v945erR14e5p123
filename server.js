@@ -28,8 +28,8 @@ app.use(loginRoutes);
 mongoose.set("strictQuery", false);
 
 require('dotenv').config();
-const password = process.env.password;
-const dbName = process.env.pietechDBUserpassword;
+const password = process.env.pietechDBUserpassword;
+const dbName = process.env.pieTechDBName;
 console.log( password)
 
 db.mongoose
