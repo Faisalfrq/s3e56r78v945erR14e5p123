@@ -7,6 +7,10 @@ const userSchema = new mongoose.Schema({
     phone: Number,
     applyAs: String,
     verified: Boolean,
+    applications: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "applications"
+    }]
   });
 
   const User = mongoose.model("User", userSchema);

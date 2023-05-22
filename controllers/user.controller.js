@@ -14,7 +14,6 @@ exports.addUsers = async (req, res) => {
                 message: "Account already exists",
             });
         }
-
         const user = new User({
             name: name,
             email: email,
@@ -22,7 +21,6 @@ exports.addUsers = async (req, res) => {
             phone: phone,
             applyAs: applyAs
         });
-
         const newRecord = await user.save();
         return res.send({
             status: "Success",
