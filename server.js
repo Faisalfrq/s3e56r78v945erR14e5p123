@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const db = require("./models/index");
+const multer = require("multer")
 
 const { mongoose } = require("./models/index");
 
@@ -21,12 +22,16 @@ app.get('/', (req, res)=>{
 
 app.use(cors(corsOptions));
 app.use(express.json());
-const fs = require("fs");
-//app.use(multer)
+// app.use(multer);
+const upload = multer();
+app.use(upload.any());
 
 app.use(userRoutes);
 app.use(loginRoutes);
 app.use(applicationRoutes);//applocation
+
+const cvRoutes = require("./routes/cv.route");
+app.use(cvRoutes);
 
 mongoose.set("strictQuery", false);
 
