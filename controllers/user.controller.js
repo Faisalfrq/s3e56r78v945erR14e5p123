@@ -42,7 +42,7 @@ exports.addUsers = async (req, res) => {
     const newRecord = await user.save();
 
     // Send the verification email to the user
-    const verificationLink = `https://localhost:7777/verify?token=${verificationToken}`;
+    const verificationLink = `https://pietechserver-dev.onrender.com/verify?token=${verificationToken}`;
 
     const mailOptions = {
       from: "your-email@gmail.com",
@@ -189,51 +189,53 @@ exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find(); // find all users
 
-        return res.send({
-            status: "success",
-            message: "Users retrieved successfully",
-            data: users,
-        });
-    } catch (error) {
-        return res.status(500).send({
-            status: "error",
-            message: "Unable to retrieve users",
-            error: error.message,
-        });
-    }
+    return res.send({
+      status: "success",
+      message: "Users retrieved successfully",
+      data: users,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      status: "error",
+      message: "Unable to retrieve users",
+      error: error.message,
+    });
+  }
 };
 
 //-------------Use to add Application in USERS-----------
 exports.addApplicationToUser = async (req, res) => {
-    try {
-      const { id } = req.params;
-      const { applicationId } = req.body;
-  
-      const user = await User.findByIdAndUpdate(
-        id,
-        { $push: { applications: applicationId } },
-        { new: true } // To get the updated user document as the result
-      );
-        
-      if (!user) {
-        return res.status(404).json({ error: "User not found" });
-      }
-      console.log("------------------------")
-      console.log(user)
-      console.log(id)
-      console.log(applicationId)
-      return res.status(200).json({ message: "Application added to user successfully" });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ error: "Internal server error" });
+  try {
+    const { id } = req.params;
+    const { applicationId } = req.body;
+
+    const user = await User.findByIdAndUpdate(
+      id,
+      { $push: { applications: applicationId } },
+      { new: true } // To get the updated user document as the result
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
     }
-  };
-  
-  exports.getApplications = async (req, res) => {
-    const { id } = req.params
-    const foundApplications = await User.findById(id).populate("applications");
-    res.send({
-      status: "Success",
-      data: foundApplications
-    })
+    console.log("------------------------");
+    console.log(user);
+    console.log(id);
+    console.log(applicationId);
+    return res
+      .status(200)
+      .json({ message: "Application added to user successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Internal server error" });
   }
+};
+
+exports.getApplications = async (req, res) => {
+  const { id } = req.params;
+  const foundApplications = await User.findById(id).populate("applications");
+  res.send({
+    status: "Success",
+    data: foundApplications,
+  });
+};
