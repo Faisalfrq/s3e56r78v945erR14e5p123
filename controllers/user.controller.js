@@ -42,7 +42,7 @@ exports.addUsers = async (req, res) => {
     const newRecord = await user.save();
 
     // Send the verification email to the user
-    const verificationLink = `https://example.com/verify?token=${verificationToken}`;
+    const verificationLink = `https://localhost:7777/verify?token=${verificationToken}`;
 
     const mailOptions = {
       from: "your-email@gmail.com",
