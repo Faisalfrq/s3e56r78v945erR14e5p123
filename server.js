@@ -7,6 +7,7 @@ const { mongoose } = require("./models/index");
 
 const userRoutes = require("./routes/user.routes");
 const loginRoutes = require("./routes/login.routes");
+const applicationRoutes = require("./routes/application.route");
 
 
 const corsOptions = {
@@ -20,9 +21,12 @@ app.get('/', (req, res)=>{
 
 app.use(cors(corsOptions));
 app.use(express.json());
+const fs = require("fs");
+//app.use(multer)
 
 app.use(userRoutes);
 app.use(loginRoutes);
+app.use(applicationRoutes);//applocation
 
 mongoose.set("strictQuery", false);
 
