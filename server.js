@@ -3,7 +3,6 @@ const cors = require("cors");
 const app = express();
 const db = require("./models/index");
 
-const config = require("./config/db.config");
 const { mongoose } = require("./models/index");
 
 const userRoutes = require("./routes/user.routes");
@@ -33,6 +32,7 @@ mongoose.set("strictQuery", false);
 require("dotenv").config();
 const password = process.env.pietechDBUserpassword;
 const dbName = process.env.pieTechDBName;
+console.log(password , dbName)
 
 db.mongoose
   .connect(
