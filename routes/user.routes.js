@@ -16,4 +16,8 @@ router.put("/updateUser/:id", userContoller.updateUser);
 //for delete account
 router.delete("/deleteUser/:id", userContoller.deleteUser);
 
+//--------------------adding Application to User/Getting Application Data through user-----------
+router.post("/users/:id/create", userContoller.addApplicationToUser);
+router.get("/users/:id/getUserApplications", userContoller.getApplications);
+
 module.exports = router;
