@@ -7,6 +7,7 @@ const { mongoose } = require("./models/index");
 
 const userRoutes = require("./routes/user.routes");
 const loginRoutes = require("./routes/login.routes");
+const applicationRoutes = require("./routes/application.route");
 
 const corsOptions = {
   origin: [
@@ -17,27 +18,29 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 };
 
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.send("Hello, world! PieTECH DEV");
 });
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(require('express-fileupload')());
 
 app.use(userRoutes);
 app.use(loginRoutes);
+app.use(applicationRoutes);
+
+const cvRoutes = require("./routes/cv.route");
+app.use(cvRoutes);
 
 mongoose.set("strictQuery", false);
 
 require("dotenv").config();
 const password = process.env.pietechDBUserpassword;
 const dbName = process.env.pieTechDBName;
-console.log(password , dbName)
 
 db.mongoose
   .connect(
-    //`mongodb+srv://${config.userName}:${config.password}@cluster1.qhcltxw.mongodb.net/test`,
-    //`mongodb+srv://${userName}:${password}@cluster0.symtdxi.mongodb.net/${dbName}`,
     `mongodb+srv://pieTech-dev-fsl:${password}@pietechnologies.a57f8ub.mongodb.net/${dbName}`,
     {
       useUnifiedTopology: true,
@@ -45,14 +48,11 @@ db.mongoose
       dbName: dbName,
     }
   )
-  .then(() => console.log("connection to the database was successful"))
-  .catch((err) => console.log("connection to the database failed", err));
+  .then(() => console.log("Connection to the database was successful"))
+  .catch((err) => console.log("Connection to the database failed", err));
 
 const PORT = process.env.PORT || 7777;
 
 app.listen(PORT, () => {
-  console.log(`Server is runing on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
-// app.listen(() => {
-//   console.log(`Server is running`);
-// });
