@@ -8,6 +8,7 @@ const { mongoose } = require("./models/index");
 const userRoutes = require("./routes/user.routes");
 const loginRoutes = require("./routes/login.routes");
 const applicationRoutes = require("./routes/application.route");
+const cvRoutes = require("./routes/cv.route");
 
 const corsOptions = {
   origin: [
@@ -18,19 +19,17 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 };
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.send("Hello, world! PieTECH DEV");
 });
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(require('express-fileupload')());
+// app.use(require('express-fileupload')());
 
 app.use(userRoutes);
 app.use(loginRoutes);
 app.use(applicationRoutes);
-
-const cvRoutes = require("./routes/cv.route");
 app.use(cvRoutes);
 
 mongoose.set("strictQuery", false);

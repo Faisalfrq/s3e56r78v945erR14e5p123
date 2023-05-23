@@ -1,25 +1,30 @@
-const fs = require('fs');
 const db = require("../models/index");
 const CV = db.cv;
 
-const uploadCV = async (req, res) => {
+exports.uploadCV = async (req, res) => {
   try {
-    const { buffer, originalname } = req.file;
-    const path = `uploads/${originalname}`;
+    const file = req.file;
+    console.log(file);
 
-    // Save the file to the server
-    fs.writeFileSync(path, buffer);
+    // Create a new CV instance and set the file details
+    const cv = new CV({
+      file: {
+        data: file.buffer,
+        contentType: file.mimetype,
+      },
+    });
 
-    // Save the CV details to the database
-    const cv = new CV({ filename: originalname, path });
-    await cv.save();
+    const newRecord = await cv.save();
 
-    res.status(200).json({ message: 'CV uploaded successfully.' });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to upload CV.' });
+    return res.send({
+      status: "Success",
+      data: newRecord,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({
+      status: "error",
+      message: "Unable to upload file",
+    });
   }
-};
-
-module.exports = {
-  uploadCV,
 };

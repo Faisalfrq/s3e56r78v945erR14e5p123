@@ -1,10 +1,16 @@
-const express = require('express');
-const multer = require('multer');
-const { uploadCV } = require('../controllers/cv.controller');
-
+const express = require("express");
 const router = express.Router();
-const upload = multer();
+const cvController = require("../controllers/cv.controller");
 
-router.post('/upload', upload.single('cv'), uploadCV);
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: "uploads/",
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage });
+
+router.post("/uploadCV", upload.single("file"), cvController.uploadCV);
 
 module.exports = router;
