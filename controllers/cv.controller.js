@@ -3,14 +3,22 @@ const CV = db.cv;
 
 exports.uploadCV = async (req, res) => {
   try {
-    const file = req.file;
-    console.log(file);
+    const { resume, expLetter, certifications } = req.files;
+    console.log(resume, expLetter, certifications);
 
     // Create a new CV instance and set the file details
     const cv = new CV({
-      file: {
-        data: file.buffer,
-        contentType: file.mimetype,
+      resume: {
+        data: resume[0].buffer,
+        contentType: resume[0].mimetype,
+      },
+      expLetter: {
+        data: expLetter[0].buffer,
+        contentType: expLetter[0].mimetype,
+      },
+      certFile: {
+        data: certifications[0].buffer,
+        contentType: certifications[0].mimetype,
       },
     });
 
