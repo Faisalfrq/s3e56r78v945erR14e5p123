@@ -23,10 +23,10 @@ exports.submitApplication = async function (req, res) {
   });
 
   try {
-    await application.save();
-    res.status(200).send("Application submitted successfully.");
+    const newRecord = await application.save();
+    res.status(200).send({ message: "Application submitted successfully.", data: newRecord });
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error saving application.");
+    res.status(500).send({ error: "Error saving application." });
   }
 };

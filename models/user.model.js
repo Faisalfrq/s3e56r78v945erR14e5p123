@@ -17,6 +17,12 @@ const userSchema = new mongoose.Schema({
       ref: "applications",
     },
   ],
+  cv: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "cvs",
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

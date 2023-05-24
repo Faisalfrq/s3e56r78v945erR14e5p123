@@ -239,3 +239,44 @@ exports.getApplications = async (req, res) => {
     data: foundApplications,
   });
 };
+//=============-----Upload C----------==========================
+// Add CV to User
+exports.addCVToUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { cvId } = req.body;
+
+    const user = await User.findByIdAndUpdate(
+      id,
+      { cv: cvId },
+      { new: true } // To get the updated user document as the result
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+
+    return res.status(200).json({ message: "CV added to user successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
+// Get User's CV
+exports.getCV = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate("cv");
+  
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  res.send({
+    status: "Success",
+    data: user.cv,
+  });
+};
+

@@ -22,4 +22,7 @@ router.get("/verify", userContoller.verifyEmail);
 router.post("/users/:id/create", userContoller.addApplicationToUser);
 router.get("/users/:id/getUserApplications", userContoller.getApplications);
 
+router.post('/users/:id/cv', userContoller.addCVToUser);
+router.get('/users/:id/cv', userContoller.getCV);
+
 module.exports = router;
