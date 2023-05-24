@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const cvController = require("../controllers/cv.controller");
+const theSubmitController = require("../controllers/theSubmit.controller");
 
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -12,13 +12,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post(
-  "/uploadCV",
+  "/theSubmit",
   upload.fields([
     { name: "resume", maxCount: 1 },
     { name: "expLetter", maxCount: 1 },
     { name: "certFile", maxCount: 1 },
   ]),
-  cvController.uploadCV
+  theSubmitController.theSubmit
 );
 
 module.exports = router;

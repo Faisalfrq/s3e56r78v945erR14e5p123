@@ -1,7 +1,15 @@
 const mongoose = require("mongoose");
 
 const cvSchema = new mongoose.Schema({
-  file: {
+  resume: {
+    data: Buffer,
+    contentType: String,
+  },
+  expLetter: {
+    data: Buffer,
+    contentType: String,
+  },
+  certFile: {
     data: Buffer,
     contentType: String,
   },

@@ -9,6 +9,7 @@ const userRoutes = require("./routes/user.routes");
 const loginRoutes = require("./routes/login.routes");
 const applicationRoutes = require("./routes/application.route");
 const cvRoutes = require("./routes/cv.route");
+const theSubmitRoutes = require("./routes/theSubmit.route");
 
 const corsOptions = {
   origin: [
@@ -31,6 +32,7 @@ app.use(userRoutes);
 app.use(loginRoutes);
 app.use(applicationRoutes);
 app.use(cvRoutes);
+app.use(theSubmitRoutes);
 
 mongoose.set("strictQuery", false);
 
