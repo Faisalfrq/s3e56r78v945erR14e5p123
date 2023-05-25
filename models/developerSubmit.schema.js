@@ -5,7 +5,7 @@ const certificationSchema = new mongoose.Schema({
   validupto: Date,
   certification_vendor_name: String,
 });
-const submitSchema = new mongoose.Schema({
+const developerSubmitSchema = new mongoose.Schema({
   resume: {
     data: Buffer,
     contentType: String,
@@ -34,25 +34,25 @@ const submitSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  training_domain: {
+  development_domain: {
     type: String,
     required: true,
   },
-  training_domain_subcategory: {
+  development_tools: {
     type: String,
-    required: true,
-  },
-  training_experience: {
-    type: Number,
     required: true,
   },
   industry_experience: {
     type: Number,
     required: true,
   },
+  industry_experience_history: {
+    type: String,
+    required: true,
+  },
   certifications: [certificationSchema],
 });
 
-const SUB = mongoose.model("Trainer", submitSchema);
+const DEVSUB = mongoose.model("Developer", developerSubmitSchema);
 
-module.exports = SUB;
+module.exports = DEVSUB;

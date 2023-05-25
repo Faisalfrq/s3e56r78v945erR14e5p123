@@ -19,7 +19,14 @@ router.delete("/deleteUser/:id", userContoller.deleteUser);
 router.get("/verify", userContoller.verifyEmail);
 
 //--------------------adding Application to User/Getting Application Data through user-----------
-router.post("/users/:id/create", userContoller.addApplicationToUser);
+router.post(
+  "/users/:id/trainer-create",
+  userContoller.addTrainerApplicationToUser
+);
+router.post(
+  "/users/:id/developer-create",
+  userContoller.addDeveloperApplicationToUser
+);
 router.get("/users/:id/getUserApplications", userContoller.getApplications);
 
 module.exports = router;

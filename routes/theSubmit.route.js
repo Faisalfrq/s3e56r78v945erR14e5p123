@@ -4,7 +4,7 @@ const theSubmitController = require("../controllers/theSubmit.controller");
 
 const multer = require("multer");
 const storage = multer.diskStorage({
-  destination: "uploads/",
+  destination: "uploads/trainerUploads",
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },

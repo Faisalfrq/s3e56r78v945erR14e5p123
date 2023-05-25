@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const cvController = require("../controllers/cv.controller");
+const developmentSubmitController = require("../controllers/developerSubmit.controller");
 
 const multer = require("multer");
 const storage = multer.diskStorage({
-  destination: "uploads/",
+  destination: "uploads/developerUploads",
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
@@ -12,13 +12,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post(
-  "/uploadCV",
+  "/developerSubmit",
   upload.fields([
     { name: "resume", maxCount: 1 },
     { name: "expLetter", maxCount: 1 },
     { name: "certFile", maxCount: 1 },
   ]),
-  cvController.uploadCV
+  developmentSubmitController.developerSubmit   
 );
 
 module.exports = router;

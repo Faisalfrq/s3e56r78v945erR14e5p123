@@ -204,14 +204,14 @@ exports.getAllUsers = async (req, res) => {
 };
 
 //-------------Use to add Application in USERS-----------
-exports.addApplicationToUser = async (req, res) => {
+exports.addTrainerApplicationToUser = async (req, res) => {
   try {
     const { id } = req.params;
     const { applicationId } = req.body;
 
     const user = await User.findByIdAndUpdate(
       id,
-      { $push: { applications: applicationId } },
+      { $push: { trainer_applications: applicationId } },
       { new: true } // To get the updated user document as the result
     );
 
@@ -224,7 +224,34 @@ exports.addApplicationToUser = async (req, res) => {
     console.log(applicationId);
     return res
       .status(200)
-      .json({ message: "Application added to user successfully" });
+      .json({ message: "Trainer Application added to user successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.addDeveloperApplicationToUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { applicationId } = req.body;
+
+    const user = await User.findByIdAndUpdate(
+      id,
+      { $push: { developer_applications: applicationId } },
+      { new: true } // To get the updated user document as the result
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    console.log("------------------------");
+    console.log(user);
+    console.log(id);
+    console.log(applicationId);
+    return res
+      .status(200)
+      .json({ message: "Developer Application added to user successfully" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: "Internal server error" });

@@ -11,10 +11,16 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false, // Set the default value of verified to false
   },
-  applications: [
+  trainer_applications: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "applications",
+      ref: "Trainer",
+    },
+  ],
+  developer_applications: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Developer",
     },
   ],
 });

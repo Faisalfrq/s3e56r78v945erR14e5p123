@@ -1,7 +1,7 @@
 const db = require("../models/index");
-const SUB = db.sub;
+const DEVSUB = db.devsub;
 
-exports.theSubmit = async (req, res) => {
+exports.developerSubmit = async (req, res) => {
   try {
     const { resume, expLetter, certFile } = req.files;
 
@@ -28,17 +28,17 @@ exports.theSubmit = async (req, res) => {
     if (!req.body.institution_name) {
       throw new Error("Institution Name is required.");
     }
-    if (!req.body.training_domain) {
-      throw new Error("Training Domain is required.");
+    if (!req.body.development_domain) {
+      throw new Error("Development Domain is required.");
     }
-    if (!req.body.training_domain_subcategory) {
-      throw new Error("Training Domain Subcategory is required.");
-    }
-    if (!req.body.training_experience) {
-      throw new Error("Training Experience is required.");
+    if (!req.body.development_tools) {
+      throw new Error("Development Tools is required.");
     }
     if (!req.body.industry_experience) {
       throw new Error("Industry Experience is required.");
+    }
+    if (!req.body.industry_experience_history) {
+      throw new Error("Industry Experience History is required.");
     }
     if (!req.files || !req.files.resume) {
       throw new Error("Resume file is required.");
@@ -72,7 +72,7 @@ exports.theSubmit = async (req, res) => {
       }
     }
 
-    const sub = new SUB({
+    const devsub = new DEVSUB({
       resume: {
         data: resume[0].buffer,
         contentType: resume[0].mimetype,
@@ -89,14 +89,14 @@ exports.theSubmit = async (req, res) => {
       highest_qualification: req.body.highest_qualification,
       highest_qualification_year: req.body.highest_qualification_year,
       institution_name: req.body.institution_name,
-      training_domain: req.body.training_domain,
-      training_domain_subcategory: req.body.training_domain_subcategory,
-      training_experience: req.body.training_experience,
+      development_domain: req.body.development_domain,
+      development_tools: req.body.development_tools,
       industry_experience: req.body.industry_experience,
+      industry_experience_history: req.body.industry_experience_history,
       certifications: certifications,
     });
 
-    const newRecord = await sub.save();
+    const newRecord = await devsub.save();
 
     return res.send({
       status: "Success",
