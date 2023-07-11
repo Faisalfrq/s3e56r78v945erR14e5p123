@@ -1,5 +1,6 @@
 const db = require("../models/index");
 const SUB = db.sub;
+const User = db.user;
 
 exports.theSubmit = async (req, res) => {
   try {
@@ -96,7 +97,12 @@ exports.theSubmit = async (req, res) => {
       certifications: certifications,
     });
 
-    const newRecord = await sub.save();
+      const newRecord = await sub.save(); // Save the new trainer application
+
+    // Add the trainer application to the user's trainer_applications array
+    const user = await User.findById(req.user.id);
+    user.trainer_applications.push(newRecord._id); // Assuming newRecord._id is the ID of the newly created trainer application
+    await user.save();
 
     return res.send({
       status: "Success",
@@ -107,6 +113,27 @@ exports.theSubmit = async (req, res) => {
     return res.status(500).send({
       status: "error",
       message: err.message || "Unable to upload file",
+    });
+  }
+};
+
+exports.getOneTrainerApplication = async (req, res) => {
+  try {
+    const sub = await SUB.findById(req.params.id);
+    if (!sub) {
+      return res.status(404).send({
+        status: "error",
+        message: "Trainer Application not found",
+      });
+    }
+    return res.send({
+      status: "Success",
+      data: sub,
+    });
+  } catch (err) {
+    return res.status(500).send({
+      status: "error",
+      message: "Unable to fetch Trainer Application from database",
     });
   }
 };

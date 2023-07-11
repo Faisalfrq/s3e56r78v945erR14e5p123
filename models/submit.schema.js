@@ -35,11 +35,11 @@ const submitSchema = new mongoose.Schema({
     required: true,
   },
   training_domain: {
-    type: String,
+    type: [String],
     required: true,
   },
   training_domain_subcategory: {
-    type: String,
+    type: [String],
     required: true,
   },
   training_experience: {
@@ -53,6 +53,6 @@ const submitSchema = new mongoose.Schema({
   certifications: [certificationSchema],
 });
 
-const SUB = mongoose.model("Trainer", submitSchema);
+const Trainer = mongoose.model("Trainer", submitSchema);
 
-module.exports = SUB;
+module.exports = Trainer;

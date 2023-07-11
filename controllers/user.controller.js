@@ -207,21 +207,25 @@ exports.getAllUsers = async (req, res) => {
 exports.addTrainerApplicationToUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { applicationId } = req.body;
+    const { trainer_application } = req.body;
+
+    // Check if trainer_application is provided
+    if (!trainer_application) {
+      return res
+        .status(400)
+        .json({ error: "Trainer Application Id is required" });
+    }
 
     const user = await User.findByIdAndUpdate(
       id,
-      { $push: { trainer_applications: applicationId } },
+      { $push: { trainer_applications: trainer_application } },
       { new: true } // To get the updated user document as the result
     );
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    console.log("------------------------");
-    console.log(user);
-    console.log(id);
-    console.log(applicationId);
+
     return res
       .status(200)
       .json({ message: "Trainer Application added to user successfully" });
@@ -230,6 +234,7 @@ exports.addTrainerApplicationToUser = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 exports.addDeveloperApplicationToUser = async (req, res) => {
   try {
@@ -264,46 +269,6 @@ exports.getApplications = async (req, res) => {
   res.send({
     status: "Success",
     data: foundApplications,
-  });
-};
-//=============-----Upload C----------==========================
-// Add CV to User
-exports.addCVToUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { cvId } = req.body;
-
-    const user = await User.findByIdAndUpdate(
-      id,
-      { cv: cvId },
-      { new: true } // To get the updated user document as the result
-    );
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-
-    return res.status(200).json({ message: "CV added to user successfully" });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-};
-
-
-// Get User's CV
-exports.getCV = async (req, res) => {
-  const { id } = req.params;
-  const user = await User.findById(id).populate("cv");
-  
-  if (!user) {
-    return res.status(404).json({ error: "User not found" });
-  }
-
-  res.send({
-    status: "Success",
-    data: user.cv,
   });
 };
 

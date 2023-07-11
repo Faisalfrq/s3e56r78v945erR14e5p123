@@ -58,3 +58,18 @@ exports.login = async (req, res) => {
     console.log("something went wrong: " + err.message);
   }
 };
+
+exports.getUserPrivateProfile = async (req, res) => {
+  const userId = req.user.id; // Assuming the authenticated user's ID is available in the req.user object
+
+  try {
+    const user = await User.findById(userId).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    return res.status(200).json({ user });
+  } catch (err) {
+    console.log("Something went wrong: " + err.message);
+    return res.status(500).json({ error: "Server error" });
+  }
+};

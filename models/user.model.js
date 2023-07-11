@@ -15,18 +15,13 @@ const userSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Trainer",
+      required: true,
     },
   ],
   developer_applications: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Developer",
-    },
-  ],
-  cv: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "cvs",
+      ref: "developers",
     },
   ],
 });
