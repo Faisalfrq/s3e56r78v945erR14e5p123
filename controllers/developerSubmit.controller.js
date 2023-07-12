@@ -1,5 +1,6 @@
 const db = require("../models/index");
 const DEVSUB = db.devsub;
+const User = db.user;
 
 exports.developerSubmit = async (req, res) => {
   try {
@@ -97,6 +98,10 @@ exports.developerSubmit = async (req, res) => {
     });
 
     const newRecord = await devsub.save();
+    // Add the trainer application to the user's trainer_applications array
+    const user = await User.findById(req.user.id);
+    user.developer_applications.push(newRecord._id); // Assuming newRecord._id is the ID of the newly created trainer application
+    await user.save();
 
     return res.send({
       status: "Success",
